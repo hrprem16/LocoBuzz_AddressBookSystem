@@ -107,6 +107,20 @@ namespace Address_Book_System
                 }
             }
         }
+        public void deleteContact(string fname)
+        {
+            foreach(var con in Contacts)
+            {
+                if (con.FirstName == fname)
+                {
+                    Contacts.Remove(con);
+                }
+                else
+                {
+                    Console.WriteLine("Contact not found!");
+                }
+            }
+        }
     }
 }
 
