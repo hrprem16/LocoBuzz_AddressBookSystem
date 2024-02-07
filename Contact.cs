@@ -17,7 +17,14 @@ namespace Address_Book_System
 
         public Contact(string fn, string ln, string add, string c, string s, string z, string e, string n)
         {
-
+            this.FirstName = fn;
+            this.LastName = ln;
+            this.Address = add;
+            this.City = c;
+            this.State = s;
+            this.Zipcode = z;
+            this.Email = e;
+            this.Number = n;
         }
         //Getter and Setter 
         public string FirstName

@@ -13,6 +13,8 @@ namespace Address_Book_System
 
             AddressBook ad1 = new AddressBook();
             ad1.addContact();
+            ad1.display();
+            ad1.editContact("abc");
         }
     }
 }
