@@ -29,7 +29,83 @@ namespace Address_Book_System
             Contact newContact = new Contact(fname, lname, add, city, state, zipcode, email, phone);
 
             Contacts.Add(newContact);
+            Console.WriteLine("Contact Added Successfully!");
 
+        }
+        // Display the Contact
+        public void display()
+        {
+
+            foreach (var contact in Contacts)
+            {
+                Console.WriteLine($"Name : {contact.FirstName} {contact.LastName}");
+                Console.WriteLine($"Address : {contact.Address},{contact.City},{contact.Zipcode}");
+                Console.WriteLine($"Contact : {contact.Number}");
+                Console.WriteLine($"Email : {contact.Email}");
+            }
+        }
+
+        public void editContact(string fname)
+        {
+            foreach(Contact con in Contacts)
+            {
+                if (con.FirstName == fname)
+                {
+                    Console.WriteLine("1.Edit First name :");
+                    Console.WriteLine("2.Edit Last name :");
+                    Console.WriteLine("3.Edit Address :");
+                    Console.WriteLine("4.Edit City :");
+                    Console.WriteLine("5.Edit State :");
+                    Console.WriteLine("6.Edit Zipcode :");
+                    Console.WriteLine("7.Edit Email  :");
+                    Console.WriteLine("8.Edit Number  :");
+
+                    int input = Convert.ToInt32(Console.ReadLine());
+                    switch (input)
+                    {
+                        case 1:
+                            string Fname = Console.ReadLine();
+                            con.FirstName = Fname;
+                            break;
+                        case 2:
+                            string lname = Console.ReadLine();
+                            con.LastName = lname;
+                            break;
+                        case 3:
+                            string addr = Console.ReadLine();
+                            con.Address = addr;
+                            break;
+                        case 4:
+                            string city = Console.ReadLine();
+                            con.City = city;
+                            break;
+                        case 5:
+                            string state = Console.ReadLine();
+                            con.State = state;
+                            break;
+                        case 6:
+                            string zipcode = Console.ReadLine();
+                            con.Zipcode = zipcode;
+                            break;
+                        case 7:
+                            string email = Console.ReadLine();
+                            con.State = email;
+                            break;
+                        case 8:
+                            string number = Console.ReadLine();
+                            con.Number = number;
+                            break;
+                        default:
+                            Console.WriteLine("Invalid Input :");
+                            break;
+
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("User Not Found!");
+                }
+            }
         }
     }
 }
