@@ -3,27 +3,34 @@ namespace Address_Book_System
 {
 	class AddressBook
 	{
-		List<Contact> Contacts = new List<Contact>();
+        List<Contact> Contacts;
+        CheckValidation validation = new CheckValidation();
+
+        public AddressBook(string name, SortedDictionary<string, List<Contact>> addressbook)
+        {
+            Contacts = new List<Contact>();
+            addressbook[name] = Contacts;
+        }
 
         //Add Contact in Cotancts list
         public void addContact()
 		{
             Console.WriteLine("Enter the first name: ");
-            string fname = Console.ReadLine();
+            string fname = validation.isValidInput(Console.ReadLine());
             Console.WriteLine("Enter the last name: ");
-            string lname = Console.ReadLine();
+            string lname = validation.isValidInput(Console.ReadLine());
             Console.WriteLine("Enter the address: ");
-            string add = Console.ReadLine();
+            string add = validation.isValidInput(Console.ReadLine());
             Console.WriteLine("Enter the city: ");
-            string city = Console.ReadLine();
+            string city = validation.isValidInput(Console.ReadLine());
             Console.WriteLine("Enter the state: ");
-            string state = Console.ReadLine();
+            string state = validation.isValidInput(Console.ReadLine());
             Console.WriteLine("Enter the Phone: ");
-            string zipcode = Console.ReadLine();
+            string zipcode = validation.isValidNumber(Console.ReadLine());
             Console.WriteLine("Enter the zipcode: ");
-            string phone = Console.ReadLine();
+            string phone = validation.isValidZipcode(Console.ReadLine());
             Console.WriteLine("Enter the email: ");
-            string email = Console.ReadLine();
+            string email = validation.isValidEmail(Console.ReadLine());
 
             // Create instance of Contact 
             Contact newContact = new Contact(fname, lname, add, city, state, zipcode, email, phone);
