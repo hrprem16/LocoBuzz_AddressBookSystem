@@ -190,6 +190,20 @@ namespace Address_Book_System
                 }
             }
         }
+
+        public void viewPerson(string fname, string city, SortedDictionary<string ,List<Contact>> addressbook)
+        {
+            foreach (List<Contact> adddr in addressbook.Values)
+            {
+                foreach (Contact contact in adddr)
+                {
+                    if(contact.FirstName==fname && contact.City == city)
+                    {
+                        Console.WriteLine($"Contact of {fname} is present in this {city}");
+                    }
+                }
+            }
+        }
     }
 }
 
