@@ -109,17 +109,16 @@ namespace Address_Book_System
         }
         public void deleteContact(string fname)
         {
+            Contact abc = null;
             foreach(var con in Contacts)
             {
                 if (con.FirstName == fname)
                 {
-                    Contacts.Remove(con);
+                    abc = con;
                 }
-                else
-                {
-                    Console.WriteLine("Contact not found!");
-                }
+                
             }
+            Contacts.Remove(abc);
         }
     }
 }
