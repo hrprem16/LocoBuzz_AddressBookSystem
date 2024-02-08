@@ -11,12 +11,32 @@ namespace Address_Book_System
             Contacts = new List<Contact>();
             addressbook[name] = Contacts;
         }
+        
 
         //Add Contact in Cotancts list
-        public void addContact()
+        public void addContact(HashSet<string> hs)
 		{
-            Console.WriteLine("Enter the first name: ");
-            string fname = validation.isValidInput(Console.ReadLine());
+            //check condition for duplicate entry
+            string fname;
+            do
+            {
+                Console.WriteLine("Enter the first name: ");
+
+                fname = validation.isValidInput(Console.ReadLine());
+                if (!hs.Contains(fname))
+                {
+                    hs.Add(fname);
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("This name is already present , Enter again");
+                    Console.ReadKey();
+                    Console.Clear();
+                }
+            }
+
+            while (true);
             Console.WriteLine("Enter the last name: ");
             string lname = validation.isValidInput(Console.ReadLine());
             Console.WriteLine("Enter the address: ");
@@ -34,21 +54,28 @@ namespace Address_Book_System
 
             // Create instance of Contact 
             Contact newContact = new Contact(fname, lname, add, city, state, zipcode, email, phone);
-
             Contacts.Add(newContact);
-            Console.WriteLine("Contact Added Successfully!");
+            Console.WriteLine("Contact added successfully!");
 
+            //Check duplicate person in particular addressbook
+         
         }
         // Display the Contact
-        public void display()
+        public void display(SortedDictionary<String,List<Contact>> addressBook)
         {
-
-            foreach (var contact in Contacts)
+            foreach(List<Contact> adddr in addressBook.Values)
             {
-                Console.WriteLine($"Name : {contact.FirstName} {contact.LastName}");
-                Console.WriteLine($"Address : {contact.Address},{contact.City},{contact.Zipcode}");
-                Console.WriteLine($"Contact : {contact.Number}");
-                Console.WriteLine($"Email : {contact.Email}");
+                foreach(Contact contact in adddr)
+                {
+
+                        Console.WriteLine($"Name : {contact.FirstName} {contact.LastName}");
+                        Console.WriteLine($"Address : {contact.Address},{contact.City},{contact.Zipcode}");
+                        Console.WriteLine($"Contact : {contact.Number}");
+                        Console.WriteLine($"Email : {contact.Email}");
+   
+                    
+                }
+
             }
         }
 
@@ -126,6 +153,42 @@ namespace Address_Book_System
                 
             }
             Contacts.Remove(abc);
+        }
+
+        public void searchByCity(SortedDictionary<String, List<Contact>> addressBook, string city)
+        {
+            foreach(List<Contact> adddr in addressBook.Values)
+            {
+                foreach(Contact contact in adddr)
+                {
+                    if (contact.City == city)
+                    {
+
+                        Console.WriteLine($"Name : {contact.FirstName} {contact.LastName}");
+                        Console.WriteLine($"Address : {contact.Address},{contact.City},{contact.Zipcode}");
+                        Console.WriteLine($"Contact : {contact.Number}");
+                        Console.WriteLine($"Email : {contact.Email}");
+                    }
+                }
+            }
+        }
+
+        public void searchByState(SortedDictionary<String, List<Contact>> addressBook, string state)
+        {
+            foreach (List<Contact> adddr in addressBook.Values)
+            {
+                foreach (Contact contact in adddr)
+                {
+                    if (contact.State == state)
+                    {
+
+                        Console.WriteLine($"Name : {contact.FirstName} {contact.LastName}");
+                        Console.WriteLine($"Address : {contact.Address},{contact.City},{contact.Zipcode}");
+                        Console.WriteLine($"Contact : {contact.Number}");
+                        Console.WriteLine($"Email : {contact.Email}");
+                    }
+                }
+            }
         }
     }
 }

@@ -24,7 +24,7 @@ namespace Address_Book_System
             this.State = s;
             this.Zipcode = z;
             this.Email = e;
-            this.Number = n;
+            this.Number=n;
         }
         //Getter and Setter 
         public string FirstName
