@@ -6,8 +6,8 @@ namespace Address_Book_System
     class CheckValidation
     {
         public string patternString = @"^[A-Za-z\-\'\s]+$";
-        public string patternZipcode = "^\\d{5}$";
-        public string patternEmail = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+        public string patternZipcode = "^\\d{6}$";
+        public string patternEmail = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$";
         public string patternMobile = "^(\\+91[\\-\\s]?)?[789]\\d{9}$";
 
         public string isValidInput(string str)
