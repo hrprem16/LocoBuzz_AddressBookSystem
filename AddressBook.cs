@@ -191,7 +191,7 @@ namespace Address_Book_System
             }
         }
 
-        public void viewPerson(string fname, string city, SortedDictionary<string ,List<Contact>> addressbook)
+        public void viewPersonByCity(string fname, string city, SortedDictionary<string ,List<Contact>> addressbook)
         {
             foreach (List<Contact> adddr in addressbook.Values)
             {
@@ -203,6 +203,55 @@ namespace Address_Book_System
                     }
                 }
             }
+        }
+
+        public void viewPersonByState(string fname, string state, SortedDictionary<string, List<Contact>> addressbook)
+        {
+            foreach (List<Contact> adddr in addressbook.Values)
+            {
+                foreach (Contact contact in adddr)
+                {
+                    if (contact.FirstName == fname && contact.State == state)
+                    {
+                        Console.WriteLine($"Contact of {fname} is present in this {state}");
+                    }
+                }
+            }
+        }
+
+        public void getContactByCity(string city, SortedDictionary<string,List<Contact> > addressbook)
+        {
+            int count = 0;
+            foreach(List<Contact> adddr in addressbook.Values)
+            {
+                foreach(Contact contact in adddr)
+                {
+                    if (contact.City == city)
+                    {
+                        count++;
+                    }
+                   
+                }
+                Console.WriteLine($"No of Contact in city {city} is {count}");
+            }
+        }
+
+        public void getContactByState(string state, SortedDictionary<string, List<Contact>> addressbook)
+        {
+            int count = 0;
+            foreach (List<Contact> adddr in addressbook.Values)
+            {
+                foreach (Contact contact in adddr)
+                {
+                    if (contact.State ==state )
+                    {
+                        count++;
+                    }
+
+                }
+                Console.WriteLine($"No of Contact in state {state} is {count}");
+            }
+
         }
     }
 }
