@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.Metrics;
 using System.Net;
 
 namespace Address_Book_System
@@ -27,7 +28,12 @@ namespace Address_Book_System
                 Console.WriteLine("4.Delete Contact");
                 Console.WriteLine("5.Add Address Book");
                 Console.WriteLine("6.Search Contacts by city");
-                Console.WriteLine("7.Exit");
+                Console.WriteLine("7.Search Contacts by state");
+                Console.WriteLine("8.View Person by city");
+                Console.WriteLine("9.View Person by state");
+                Console.WriteLine("10.Show contact person count by City");
+                Console.WriteLine("11.Show contact person count by State");
+                Console.WriteLine("10.Exit");
 
                 int input1 = Convert.ToInt32(Console.ReadLine());
                 
@@ -65,11 +71,41 @@ namespace Address_Book_System
                         }
                         break;
                     case 6:
+                        Console.WriteLine("Enter the city :");
                         String inputcity = Console.ReadLine();
                         ad1.searchByCity(addressbook,inputcity);
                       
                         break;
                     case 7:
+                        Console.WriteLine("Enter the state :");
+                        String inputstate = Console.ReadLine();
+                        ad1.searchByState(addressbook, inputstate);
+                        break;
+                    case 8:
+                        Console.WriteLine("Enter person and city that you want to check");
+                        string inputFname = Console.ReadLine();
+                        string inputCity = Console.ReadLine();
+                        ad1.viewPersonByCity(inputFname, inputCity, addressbook);
+                        break;
+                    case 9:
+                        Console.WriteLine("Enter person and state that you want to check");
+                        string InputFname = Console.ReadLine();
+                        string InputState = Console.ReadLine();
+                        ad1.viewPersonByState(InputFname,InputState,addressbook);
+                        break;
+                    case 10:
+                        Console.WriteLine("Enter city name to get no of contact person ");
+                        string Inputcity= Console.ReadLine();
+                        ad1.getContactByCity(Inputcity, addressbook);
+
+                        break;
+                    case 11:
+                        Console.WriteLine("Enter the State to get the no of contact person ");
+                        string Inputstate = Console.ReadLine();
+                        ad1.getContactByState(Inputstate, addressbook);
+                        break;
+
+                    case 12:
                         isrunning = false;
                         break;
 
