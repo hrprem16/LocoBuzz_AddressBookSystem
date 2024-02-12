@@ -119,6 +119,18 @@ namespace Address_Book_System
                             case 1:
                                 ad1.SortByPersonName(addressbook);
                                 break;
+                            case 2:
+                                ad1.SortByPersonCity(addressbook);
+                                break;
+                            case 3:
+                                ad1.SortByPersonState(addressbook);
+                                break;
+                            case 4:
+                                ad1.SortByPersonZip(addressbook);
+                                break;
+                            default:
+                                Console.WriteLine("Invalid Input");
+                                break;
                             
 
                         }
