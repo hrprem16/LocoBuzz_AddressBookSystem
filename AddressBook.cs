@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 namespace Address_Book_System
 {
 	class AddressBook
@@ -251,6 +252,27 @@ namespace Address_Book_System
                 }
                 Console.WriteLine($"No of Contact in state {state} is {count}");
             }
+
+        }
+
+        public void SortByPersonName(SortedDictionary<string, List<Contact>> addressbook)
+        {
+            foreach(List<Contact> addr in addressbook.Values)
+            {
+                 addr.OrderBy(n => n.FirstName).ToList();
+            }
+        }
+
+        public void SortByPersonCity()
+        {
+
+        }
+        public void SortByPersonState()
+        {
+
+        }
+        public void SortByPersonZip()
+        {
 
         }
     }

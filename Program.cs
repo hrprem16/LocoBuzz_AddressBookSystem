@@ -33,7 +33,9 @@ namespace Address_Book_System
                 Console.WriteLine("9.View Person by state");
                 Console.WriteLine("10.Show contact person count by City");
                 Console.WriteLine("11.Show contact person count by State");
-                Console.WriteLine("10.Exit");
+                Console.WriteLine("12.Sort the Contacts by person by fname/city/state/Zipcode");
+                Console.WriteLine("13.Exit");
+                
 
                 int input1 = Convert.ToInt32(Console.ReadLine());
                 
@@ -104,8 +106,28 @@ namespace Address_Book_System
                         string Inputstate = Console.ReadLine();
                         ad1.getContactByState(Inputstate, addressbook);
                         break;
-
                     case 12:
+                        Console.WriteLine("Enter the option given below to sort contacts");
+                        Console.WriteLine("1. Sort By First Name");
+                        Console.WriteLine("2. Sort By City");
+                        Console.WriteLine("3. Sort By State");
+                        Console.WriteLine("4. Sort By Zipcode");
+                        int inputoption=Convert.ToInt32(Console.ReadLine());
+
+                        switch (inputoption)
+                        {
+                            case 1:
+                                ad1.SortByPersonName(addressbook);
+                                break;
+                            
+
+                        }
+                        
+                       
+                        break;
+
+
+                    case 13:
                         isrunning = false;
                         break;
 
