@@ -44,7 +44,6 @@ namespace Address_Book_System
                     case 1:
                         ad1.addContact(hs);
                         count++;
-                        Console.WriteLine(count);
                         break;
                     case 2:
                         ad1.display(addressbook);

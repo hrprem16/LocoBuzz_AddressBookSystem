@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Linq;
+using System.Numerics;
+using System.Reflection.Emit;
+using System.Xml.Linq;
+
 namespace Address_Book_System
 {
 	class AddressBook
@@ -17,67 +21,132 @@ namespace Address_Book_System
         //Add Contact in Cotancts list
         public void addContact(HashSet<string> hs)
 		{
-            //check condition for duplicate entry
-            string fname;
-            do
+            Console.WriteLine("1. Read data by user ");
+            Console.WriteLine("2. Import data from file");
+            int input = Convert.ToInt32(Console.ReadLine());
+            if (input == 1)
             {
-                Console.WriteLine("Enter the first name: ");
+                string fname;
+                do
+                {
+                    Console.WriteLine("Enter the first name: ");
 
-                fname = validation.isValidInput(Console.ReadLine());
-                if (!hs.Contains(fname))
-                {
-                    hs.Add(fname);
-                    break;
+                    fname = validation.isValidInput(Console.ReadLine());
+                    if (!hs.Contains(fname))
+                    {
+                        hs.Add(fname);
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("This name is already present , Enter again");
+                        Console.ReadKey();
+                        Console.Clear();
+                    }
                 }
-                else
+
+                while (true);
+                Console.WriteLine("Enter the last name: ");
+                string lname = validation.isValidInput(Console.ReadLine());
+                Console.WriteLine("Enter the address: ");
+                string add = validation.isValidInput(Console.ReadLine());
+                Console.WriteLine("Enter the city: ");
+                string city = validation.isValidInput(Console.ReadLine());
+                Console.WriteLine("Enter the state: ");
+                string state = validation.isValidInput(Console.ReadLine());
+                Console.WriteLine("Enter the Zipcode: ");
+                string zipcode = validation.isValidZipcode(Console.ReadLine());
+                
+                Console.WriteLine("Enter the email: ");
+                string email = validation.isValidEmail(Console.ReadLine());
+                Console.WriteLine("Enter the Phone: ");
+                string phone = validation.isValidNumber(Console.ReadLine());
+
+                // Create instance of Contact 
+                Contact newContact = new Contact(fname, lname, add, city, state, zipcode, email, phone);
+                Contacts.Add(newContact);
+
+                Console.WriteLine("Contact added successfully!");
+            }
+            //Import data from file
+            else if (input == 2)
+            {
+                string path = @"/Users/prince/Desktop/Locobuzz Training/AddressBook/ImportFile.txt";
+                string [] addrarry=File.ReadAllLines(path);
+                
+
+                foreach(string i in addrarry)
                 {
-                    Console.WriteLine("This name is already present , Enter again");
-                    Console.ReadKey();
-                    Console.Clear();
+                   string [] abc= i.Split(','); // Store the information of a person in abc sting array
+                    Contact newContact = new Contact(abc[0], abc[1], abc[2], abc[3], abc[4], abc[5], abc[6], abc[7]);
+                    Contacts.Add(newContact);
+                    Console.WriteLine("Imported Information of a person successfully");
                 }
             }
-
-            while (true);
-            Console.WriteLine("Enter the last name: ");
-            string lname = validation.isValidInput(Console.ReadLine());
-            Console.WriteLine("Enter the address: ");
-            string add = validation.isValidInput(Console.ReadLine());
-            Console.WriteLine("Enter the city: ");
-            string city = validation.isValidInput(Console.ReadLine());
-            Console.WriteLine("Enter the state: ");
-            string state = validation.isValidInput(Console.ReadLine());
-            Console.WriteLine("Enter the Phone: ");
-            string zipcode = validation.isValidNumber(Console.ReadLine());
-            Console.WriteLine("Enter the zipcode: ");
-            string phone = validation.isValidZipcode(Console.ReadLine());
-            Console.WriteLine("Enter the email: ");
-            string email = validation.isValidEmail(Console.ReadLine());
-
-            // Create instance of Contact 
-            Contact newContact = new Contact(fname, lname, add, city, state, zipcode, email, phone);
-            Contacts.Add(newContact);
-            Console.WriteLine("Contact added successfully!");
-
-            //Check duplicate person in particular addressbook
-         
         }
+
         // Display the Contact
         public void display(SortedDictionary<String,List<Contact>> addressBook)
         {
-            foreach(List<Contact> adddr in addressBook.Values)
+            Console.WriteLine("1. Display the Contacts in Console");
+            Console.WriteLine("2. Export the contacts in file");
+
+            int a = Convert.ToInt32(Console.ReadLine());
+            do
             {
-                foreach(Contact contact in adddr)
+                if (a == 1)
                 {
+                    foreach (List<Contact> adddr in addressBook.Values)
+                    {
+                        foreach (Contact contact in adddr)
+                        {
 
-                        Console.WriteLine($"Name : {contact.FirstName} {contact.LastName}");
-                        Console.WriteLine($"Address : {contact.Address},{contact.City},{contact.Zipcode}");
-                        Console.WriteLine($"Contact : {contact.Number}");
-                        Console.WriteLine($"Email : {contact.Email}");
-   
-                    
+                            Console.WriteLine($"Name : {contact.FirstName} {contact.LastName}");
+                            Console.WriteLine($"Address : {contact.Address},{contact.City}");
+                            Console.WriteLine($"Zipcode : {contact.Zipcode}");
+                            Console.WriteLine($"Mobile No : {contact.Number}");
+                            Console.WriteLine($"Email : {contact.Email}");
+
+
+                        }
+
+                    }
+                    break;
                 }
+                else if (a == 2)
+                {
+                    string path = @"/Users/prince/Desktop/Locobuzz Training/AddressBook/Contact.txt";
+                    using (StreamWriter writer = new StreamWriter(path))
+                    {
+                        foreach (String addr in addressBook.Keys)
+                        {
+                            List<Contact> adddr = addressBook[addr]; 
+                            writer.WriteLine($"Address Book : {addr}");
+                            foreach (Contact contact in adddr)
+                            {
 
+                                writer.WriteLine($"Name : {contact.FirstName} {contact.LastName}");
+                                writer.WriteLine($"Address : {contact.Address},{contact.City},{contact.Zipcode}");
+                                writer.WriteLine($"Contact : {contact.Number}");
+                                writer.WriteLine($"Email : {contact.Email}");
+                            }
+
+
+                        }
+                        Console.WriteLine("Exported Information Successfully");
+                        Thread.Sleep(1000);// Stop the console for a bit
+                    }
+
+                    break;
+
+
+                }
+                else
+                {
+                    Console.WriteLine("Invalid Input");
+                }
             }
+            while (true);
         }
 
         public void editContact(string fname)
@@ -263,17 +332,26 @@ namespace Address_Book_System
             }
         }
 
-        public void SortByPersonCity()
+        public void SortByPersonCity(SortedDictionary<string, List<Contact>> addressbook)
         {
-
+            foreach (List<Contact> addr in addressbook.Values)
+            {
+                addr.OrderBy(n => n.City).ToList();
+            }
         }
-        public void SortByPersonState()
+        public void SortByPersonState(SortedDictionary<string, List<Contact>> addressbook)
         {
-
+            foreach (List<Contact> addr in addressbook.Values)
+            {
+                addr.OrderBy(n => n.State).ToList();
+            }
         }
-        public void SortByPersonZip()
+        public void SortByPersonZip(SortedDictionary<string, List<Contact>> addressbook)
         {
-
+            foreach (List<Contact> addr in addressbook.Values)
+            {
+                addr.OrderBy(n => n.Zipcode).ToList();
+            }
         }
     }
 }
