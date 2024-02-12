@@ -22,7 +22,10 @@ namespace Address_Book_System
         public void addContact(HashSet<string> hs)
 		{
             Console.WriteLine("1. Read data by user ");
-            Console.WriteLine("2. Import data from file");
+            Console.WriteLine("2. Import data from TEXTfile");
+            Console.WriteLine("3. Import data from CSVfile");
+            Console.WriteLine("4. Import data JSON file");
+
             int input = Convert.ToInt32(Console.ReadLine());
             if (input == 1)
             {
@@ -83,13 +86,41 @@ namespace Address_Book_System
                     Console.WriteLine("Imported Information of a person successfully");
                 }
             }
+            else if (input == 3)
+            {
+                string path = @"/Users/prince/Desktop/Locobuzz Training/AddressBook/file.csv";
+
+                string[] addrarry = File.ReadAllLines(path);
+
+
+                foreach (string i in addrarry)
+                {
+                    string[] abc = i.Split(','); // Store the information of a person in abc sting array
+
+                    //foreach(string str in abc)
+                    //{
+                    //    Console.WriteLine(str);
+                    //}
+                    if (abc.Length != 1)
+                    {
+                        Contact newContact = new Contact(abc[0], abc[1], abc[2], abc[3], abc[4], abc[5], abc[6], abc[7]);
+                        Contacts.Add(newContact);
+                    }
+                    
+                    
+                }
+                Console.WriteLine("Imported Information of a person from CSV file is successfully");
+            }
         }
 
         // Display the Contact
         public void display(SortedDictionary<String,List<Contact>> addressBook)
         {
             Console.WriteLine("1. Display the Contacts in Console");
-            Console.WriteLine("2. Export the contacts in file");
+            Console.WriteLine("2. Export the contacts in Textfile");
+            Console.WriteLine("3. Export the contacts in CSVfile");
+            Console.WriteLine("4. Export the contacts in JSONfile");
+
 
             int a = Convert.ToInt32(Console.ReadLine());
             do
@@ -116,6 +147,7 @@ namespace Address_Book_System
                 else if (a == 2)
                 {
                     string path = @"/Users/prince/Desktop/Locobuzz Training/AddressBook/Contact.txt";
+
                     using (StreamWriter writer = new StreamWriter(path))
                     {
                         foreach (String addr in addressBook.Keys)
@@ -127,8 +159,38 @@ namespace Address_Book_System
 
                                 writer.WriteLine($"Name : {contact.FirstName} {contact.LastName}");
                                 writer.WriteLine($"Address : {contact.Address},{contact.City},{contact.Zipcode}");
-                                writer.WriteLine($"Contact : {contact.Number}");
                                 writer.WriteLine($"Email : {contact.Email}");
+                                writer.WriteLine($"Contact : {contact.Number}");
+                               
+                            }
+
+
+                        }
+                        Console.WriteLine("Exported Information Successfully");
+                        Thread.Sleep(1000);// Stop the console for a bit
+                    }
+
+                    break;
+
+
+                }
+                else if (a == 3)
+                {
+                    string path = @"/Users/prince/Desktop/Locobuzz Training/AddressBook/export.csv";
+
+                    using (StreamWriter writer = new StreamWriter(path))
+                    {
+                        foreach (String addr in addressBook.Keys)
+                        {
+                            List<Contact> adddr = addressBook[addr];
+                            writer.WriteLine($"Address Book : {addr}");
+                            foreach (Contact contact in adddr)
+                            {
+
+                                writer.Write($"{contact.FirstName},{contact.LastName},");
+                                writer.Write($"{contact.Address},{contact.City},{contact.State},{contact.Zipcode},");
+                                writer.Write($"{contact.Email},");
+                                writer.WriteLine($"{contact.Number}");
                             }
 
 
